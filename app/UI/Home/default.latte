@@ -1,0 +1,68 @@
+{block content}
+
+<div class="container mt-5" style="width: 30%;">
+	<form n:name=clientForm>
+		<div class="mb-3" id="name-input">
+			{label name, class=>"form-label"/}
+			{input name, class=>"form-control"}
+		</div>
+		<div class="mb-3" id="email-input">
+			{label email, class=>"form-label"/}
+			{input email, class=>"form-control"}
+		</div>
+		<div class="mb-3" id="phone-input">
+			{label phone, class=>"form-label"/}
+			{input phone, class=>"form-control"}
+		</div>
+		<div class="mb-3" id="age-input">
+			{label age, class=>"form-label"/}
+			{input age, class=>"form-control"}
+		</div>
+	</form>
+	<button onclick="addClient()" class="btn btn-primary">Odeslat</button>
+</div>
+
+<script>
+	function addClient() {
+		let name = $("#frm-clientForm-name").val();
+		let email = $("#frm-clientForm-email").val();
+		let phone = $("#frm-clientForm-phone").val();
+		let age = $("#frm-clientForm-age").val();
+
+		$.ajax({
+			type: "POST",
+			data: { name : name, email : email, phone : phone, age : age },
+			url:  {link "addClientInfo!"},
+			success: function (response) {
+				$( ".clientFormError" ).remove();
+				if (response["error"]) {
+					response["error"].forEach((item) => {
+						if (item === "empty-name") {
+							$("#name-input").append("<span class='clientFormError' style='color: indianred'>Pole je povinné.</span>")
+						}
+						if (item === "empty-email") {
+							$("#email-input").append("<span class='clientFormError' style='color: indianred'>Pole je povinné.</span>")
+						}
+						if (item === "invalid-email") {
+							$("#email-input").append("<span class='clientFormError' style='color: indianred'>Zadaný e-mail je nevalidní.</span>")
+						}
+						if (item === "empty-phone") {
+							$("#phone-input").append("<span class='clientFormError' style='color: indianred'>Pole je povinné.</span>")
+						}
+						if (item === "empty-age") {
+							$("#age-input").append("<span class='clientFormError' style='color: indianred'>Pole je povinné.</span>")
+						}
+					})
+				} else if(response["success"]) {
+					$('#frm-clientForm-name').val('');
+					$('#frm-clientForm-email').val('');
+					$('#frm-clientForm-phone').val('');
+					$('#frm-clientForm-age').val('');
+					alert("Údaje úspěšně uloženy.");
+				}
+			}
+		});
+	}
+
+</script>
+

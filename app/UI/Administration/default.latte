@@ -1,0 +1,47 @@
+{block content}
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Jméno</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Telefon</th>
+            <th scope="col">Věk</th>
+            <th scope="col">Datum vytvoření</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $clientInfos as $clientInfo}
+            <tr>
+                <td>{$clientInfo->getName()}</td>
+                <td>{$clientInfo->getEmail()}</td>
+                <td>{$clientInfo->getPhone()}</td>
+                <td>{$clientInfo->getAge()}</td>
+                <td>{$clientInfo->getCreatedAt()->format('d.m.Y H:i:s')}</td>
+            </tr>
+
+        {/foreach}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-cente">
+        <div class="pagination" style="margin: 0 auto">
+            {if !$paginator->isFirst()}
+                <a n:href="default, 1">První</a>
+                &nbsp;|&nbsp;
+                <a n:href="default, $paginator->page-1">Předchozí</a>
+                &nbsp;|&nbsp;
+            {/if}
+
+                Stránka {$paginator->getPage()} z {$paginator->getPageCount()}
+
+            {if !$paginator->isLast()}
+                &nbsp;|&nbsp;
+                <a n:href="default, $paginator->getPage() + 1">Další</a>
+                &nbsp;|&nbsp;
+                <a n:href="default, $paginator->getPageCount()">Poslední</a>
+            {/if}
+        </div>
+    </div>
+</div>

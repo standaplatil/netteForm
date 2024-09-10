@@ -1,0 +1,8 @@
+database:
+    dsn: 'mysql:host=database;dbname=nette_form'
+    user: user
+    password: user
+
+security:
+	users:
+		admin: admin

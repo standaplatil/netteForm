@@ -1,0 +1,13 @@
+services:
+	- App\Core\RouterFactory::createRouter
+	- App\Services\ClientInfoService
+	- App\Services\AdministrationService
+	- App\Repositories\ClientInfoRepository
+	- App\Repositories\AdministrationRepository
+
+
+search:
+	-	in: %appDir%
+		classes:
+			- *Factory
+			- *Facade

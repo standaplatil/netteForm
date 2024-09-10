@@ -1,0 +1,35 @@
+services:
+  php:
+    container_name: nette_form
+    image: nette_form
+    build: build/php
+    volumes:
+      - ../:/var/www/html
+    ports:
+      - 80:80
+    environment:
+      - NETTE_DEBUG=1
+      - COMPOSER_AUTH={"github-oauth":{"github.com":"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"}}
+    links:
+      - database
+  database:
+    container_name: nette_form_db
+    image: nette_form_db
+    build: build/database
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_DATABASE: nette_form
+    volumes:
+      - ./build/database/01_create.sql:/docker-entrypoint-initdb.d/01_create.sql
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=database
+      - PMA_USER=user
+      - PMA_PASSWORD=user
