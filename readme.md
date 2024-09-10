@@ -15,6 +15,9 @@
     ```bash
     docker-compose build
    
+Pokud bude problém s composerem je možné že bude potřeba ve složce ./docker/ 
+vytvořit soubor .env dle .env.example a do něj následně doplnit github token místo TODO.
+   
 ## Spuštění
 
 1. Spusťte všechny služby pomocí Docker Compose:

@@ -9,7 +9,7 @@ services:
       - 80:80
     environment:
       - NETTE_DEBUG=1
-      - COMPOSER_AUTH={"github-oauth":{"github.com":"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"}}
+      - COMPOSER_AUTH={$COMPOSER_AUTH}
     links:
       - database
   database:
