@@ -7,7 +7,7 @@
 
 1. Naklonujte si tento repozitář:
    ```bash
-   git clone https://github.com/yourusername/nette_form.git
+   git clone https://github.com/standaplatil/netteForm.git
    cd netteForm
    cd .docker/
    
